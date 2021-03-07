@@ -1,0 +1,4 @@
+cd /home/lojz/md/rh/workshops/ocp4ws/ocp-4.7/acm/
+git add -A
+git commit -m change
+git push
