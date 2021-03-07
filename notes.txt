@@ -2,3 +2,5 @@ cd /home/lojz/md/rh/workshops/ocp4ws/ocp-4.7/acm/
 git add -A
 git commit -m change
 git push
+
+cat ocs.yml | ssh ocp.services 'export KUBECONFIG=/root/acm/auth/kubeconfig; oc delete -f -'; cat ocs.yml | ssh ocp.services 'export KUBECONFIG=/root/acm/auth/kubeconfig; oc apply -f -'

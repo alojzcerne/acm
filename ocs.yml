@@ -12,14 +12,13 @@ metadata:
 spec:
   type: Git
   pathname: https://github.com/alojzcerne/acm.git
-  secretRef:
-    name: github-gitops-clusters
+# pathname: https://github.com/open-cluster-management/application-samples.git
 ---
 apiVersion: v1
 kind: Namespace
 metadata:
-  labels:
-    role: app
+  #labels:
+    #role: app
   name: ac-app-test
 ---
 apiVersion: apps.open-cluster-management.io/v1
@@ -28,10 +27,12 @@ metadata:
   name: app-test
   namespace: ac-app-test
   labels:
-    app: app-test
+    app: app-test-subscription
   annotations:
+#   apps.open-cluster-management.io/github-path: ''
     apps.open-cluster-management.io/github-path: test
     apps.open-cluster-management.io/github-branch: main
+    apps.open-cluster-management.io/reconcile-option: merge
 spec:
   channel: ac-channel-acm/gs-acm
   placement:
@@ -65,4 +66,4 @@ spec:
     - key: app
       operator: In
       values:
-      - app-test
+      - app-test-subscription
