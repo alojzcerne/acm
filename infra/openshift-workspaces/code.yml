@@ -27,3 +27,45 @@ spec:
   name: codeready-workspaces
   source: redhat-operators
   sourceNamespace: openshift-marketplace
+---
+apiVersion: org.eclipse.che/v1
+kind: CheCluster
+metadata:
+  name: codeready-workspaces
+  namespace: openshift-workspaces
+  finalizers:
+    - oauthclients.finalizers.che.eclipse.org
+spec:
+  auth:
+    externalIdentityProvider: false
+    identityProviderIngress: {}
+    identityProviderRoute: {}
+    openShiftoAuth: true
+    updateAdminPassword: false
+  database:
+    externalDb: false
+  imagePuller:
+    enable: false
+    spec: {}
+  k8s: {}
+  metrics:
+    enable: true
+  server:
+    externalDevfileRegistry: false
+    pluginRegistryIngress: {}
+    cheServerRoute: {}
+    devfileRegistryIngress: {}
+    selfSignedCert: false
+    cheServerIngress: {}
+    tlsSupport: true
+    allowUserDefinedWorkspaceNamespaces: false
+    pluginRegistryRoute: {}
+    devfileRegistryRoute: {}
+    externalPluginRegistry: false
+    gitSelfSignedCert: false
+    useInternalClusterSVCNames: true
+    cheFlavor: codeready
+  storage:
+    preCreateSubPaths: true
+    pvcClaimSize: 1Gi
+    pvcStrategy: common
