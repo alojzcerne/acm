@@ -9,3 +9,42 @@ metadata:
 provisioner: kubernetes.io/no-provisioner
 reclaimPolicy: Delete
 volumeBindingMode: WaitForFirstConsumer
+---
+kind: StorageCluster
+metadata:
+  annotations:
+    cluster.ocs.openshift.io/local-devices: 'true'
+    uninstall.ocs.openshift.io/cleanup-policy: delete
+    uninstall.ocs.openshift.io/mode: graceful
+  name: ocs-storagecluster
+  namespace: openshift-storage
+  finalizers:
+    - storagecluster.ocs.openshift.io
+spec:
+  encryption: {}
+  externalStorage: {}
+  managedResources:
+    cephBlockPools: {}
+    cephFilesystems: {}
+    cephObjectStoreUsers: {}
+    cephObjectStores: {}
+  monDataDirHostPath: /var/lib/rook
+  storageDeviceSets:
+    - config: {}
+      count: 1
+      dataPVCTemplate:
+        metadata:
+          creationTimestamp: null
+        spec:
+          accessModes:
+            - ReadWriteOnce
+          resources:
+            requests:
+              storage: '1'
+          storageClassName: lcl
+          volumeMode: Block
+        status: {}
+      name: ocs-deviceset-lcl
+      placement: {}
+      replica: 3
+      resources: {}
