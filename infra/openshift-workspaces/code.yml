@@ -6,3 +6,24 @@ metadata:
 spec:
   finalizers:
   - kubernetes
+---
+apiVersion: operators.coreos.com/v1
+kind: OperatorGroup
+metadata:
+  name: codeready-workspaces-operator-ac
+  namespace: openshift-workspaces
+spec:
+  targetNamespaces:
+    - openshift-workspaces
+---
+apiVersion: operators.coreos.com/v1alpha1
+kind: Subscription
+metadata:
+  name: codeready-workspaces
+  namespace: openshift-worspaces
+spec:
+  channel: "latest"
+  installPlanApproval: Automatic
+  name: codeready-workspaces
+  source: redhat-operators
+  sourceNamespace: openshift-marketplace
