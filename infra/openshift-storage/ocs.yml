@@ -79,3 +79,16 @@ spec:
       placement: {}
       replica: 3
       resources: {}
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: ocs4registry
+  namespace: openshift-image-registry
+spec: 
+  storageClassName: ocs-storagecluster-cephfs
+  accessModes: [ "ReadWriteMany" ]
+  resources:
+    requests: 
+      storage: 100Gi
+
