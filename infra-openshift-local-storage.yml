@@ -12,25 +12,24 @@ metadata:
 spec:
   type: Git
   pathname: https://github.com/alojzcerne/acm.git
-# pathname: https://github.com/open-cluster-management/application-samples.git
 ---
 apiVersion: v1
 kind: Namespace
 metadata:
-  #labels:
-    #role: app
-  name: ac-app-test
+  name: openshift-local-storage
+spec:
+  finalizers:
+  - kubernetes
 ---
 apiVersion: apps.open-cluster-management.io/v1
 kind: Subscription
 metadata:
-  name: app-test
-  namespace: ac-app-test
+  name: infra-openshift-local-storage
+  namespace: openshift-local-storage
   labels:
     app: app-test-subscription
   annotations:
-#   apps.open-cluster-management.io/github-path: ''
-    apps.open-cluster-management.io/github-path: test
+    apps.open-cluster-management.io/github-path: infra/openshift-local-storage
     apps.open-cluster-management.io/github-branch: main
     apps.open-cluster-management.io/reconcile-option: merge
 spec:
@@ -44,7 +43,7 @@ apiVersion: apps.open-cluster-management.io/v1
 kind: PlacementRule
 metadata:
   name: dev-clusters
-  namespace: ac-app-test
+  namespace: openshift-local-storage
 spec:
   clusterSelector:
     matchExpressions: []
@@ -55,7 +54,7 @@ apiVersion: app.k8s.io/v1beta1
 kind: Application
 metadata:
   name: test
-  namespace: ac-app-test
+  namespace: openshift-local-storage
 spec:
   componentKinds:
   - group: apps.open-cluster-management.io
