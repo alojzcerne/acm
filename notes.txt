@@ -3,3 +3,8 @@ git add -A; git commit -m change; git push
 
 cat infra-openshift-local-storage.yml | ssh ocp.services 'export KUBECONFIG=/root/acm/auth/kubeconfig; oc delete -f -'; cat infra-openshift-local-storage.yml | ssh ocp.services 'export KUBECONFIG=/root/acm/auth/kubeconfig; oc apply -f -'
 cat infra-openshift-storage.yml | ssh ocp.services 'export KUBECONFIG=/root/acm/auth/kubeconfig; oc delete -f -'; cat infra-openshift-storage.yml | ssh ocp.services 'export KUBECONFIG=/root/acm/auth/kubeconfig; oc apply -f -'
+
+
+
+oc create route passthrough --service=multicluster-operators-subscription -n open-cluster-management
+oc annotate channel.apps.open-cluster-management.io gs-acm apps.open-cluster-management.io/webhook-enabled="true" -n ac-channel-acm
