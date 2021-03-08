@@ -1,0 +1,54 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: openshift-workspaces
+spec:
+  finalizers:
+  - kubernetes
+---
+apiVersion: apps.open-cluster-management.io/v1
+kind: Subscription
+metadata:
+  name: infra-openshift-workspaces
+  namespace: openshift-workspaces
+  labels:
+    app: infra-openshift-workspaces
+  annotations:
+    apps.open-cluster-management.io/github-path: infra/openshift-workspaces
+    apps.open-cluster-management.io/github-branch: main
+    apps.open-cluster-management.io/reconcile-option: merge
+spec:
+  channel: ac-channel-acm/gs-acm
+  placement:
+    placementRef:
+      kind: PlacementRule
+      name: dev-clusters
+---
+apiVersion: apps.open-cluster-management.io/v1
+kind: PlacementRule
+metadata:
+  name: dev-clusters
+  namespace: openshift-workspaces
+spec:
+  clusterSelector:
+    matchExpressions: []
+    matchLabels:
+      environment: Dev
+---
+apiVersion: app.k8s.io/v1beta1
+kind: Application
+metadata:
+  name: infra-openshift-workspaces
+  namespace: openshift-workspaces
+spec:
+  componentKinds:
+  - group: apps.open-cluster-management.io
+    kind: Subscription
+  descriptor: {}
+  selector:
+    matchExpressions:
+    - key: app
+      operator: In
+      values:
+      - infra-openshift-workspaces

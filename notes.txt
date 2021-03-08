@@ -3,6 +3,7 @@ git add -A; git commit -m change; git push
 
 cat infra-openshift-local-storage.yml | ssh ocp.services 'export KUBECONFIG=/root/acm/auth/kubeconfig; oc delete -f -'; cat infra-openshift-local-storage.yml | ssh ocp.services 'export KUBECONFIG=/root/acm/auth/kubeconfig; oc apply -f -'
 cat infra-openshift-storage.yml | ssh ocp.services 'export KUBECONFIG=/root/acm/auth/kubeconfig; oc delete -f -'; cat infra-openshift-storage.yml | ssh ocp.services 'export KUBECONFIG=/root/acm/auth/kubeconfig; oc apply -f -'
+cat infra-openshift-workspaces.yml | ssh ocp.services 'export KUBECONFIG=/root/acm/auth/kubeconfig; oc delete -f -'; cat infra-openshift-workspaces.yml | ssh ocp.services 'export KUBECONFIG=/root/acm/auth/kubeconfig; oc apply -f -'
 
 
 
