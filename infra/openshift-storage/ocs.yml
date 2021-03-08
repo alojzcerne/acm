@@ -1,4 +1,3 @@
----
 kind: StorageClass
 apiVersion: storage.k8s.io/v1
 metadata:
@@ -10,41 +9,33 @@ provisioner: kubernetes.io/no-provisioner
 reclaimPolicy: Delete
 volumeBindingMode: WaitForFirstConsumer
 ---
-kind: StorageCluster
+apiVersion: v1
+kind: Namespace
 metadata:
-  annotations:
-    cluster.ocs.openshift.io/local-devices: 'true'
-    uninstall.ocs.openshift.io/cleanup-policy: delete
-    uninstall.ocs.openshift.io/mode: graceful
-  name: ocs-storagecluster
+  labels:
+    openshift.io/cluster-monitoring: "true"
+  name: openshift-storage
+spec: {}
+---
+apiVersion: operators.coreos.com/v1
+kind: OperatorGroup
+metadata:
+  name: ocs-operator-ac
   namespace: openshift-storage
-  finalizers:
-    - storagecluster.ocs.openshift.io
 spec:
-  encryption: {}
-  externalStorage: {}
-  managedResources:
-    cephBlockPools: {}
-    cephFilesystems: {}
-    cephObjectStoreUsers: {}
-    cephObjectStores: {}
-  monDataDirHostPath: /var/lib/rook
-  storageDeviceSets:
-    - config: {}
-      count: 1
-      dataPVCTemplate:
-        metadata:
-          creationTimestamp: null
-        spec:
-          accessModes:
-            - ReadWriteOnce
-          resources:
-            requests:
-              storage: '1'
-          storageClassName: lcl
-          volumeMode: Block
-        status: {}
-      name: ocs-deviceset-lcl
-      placement: {}
-      replica: 3
-      resources: {}
+  targetNamespaces:
+    - openshift-storage
+---
+apiVersion: operators.coreos.com/v1alpha1
+kind: Subscription
+metadata:
+  name: ocs-operator
+  namespace: openshift-storage
+  labels:
+    operators.coreos.com/ocs-operator.openshift-storage: ""
+spec:
+  channel: "stable-4.6"
+  installPlanApproval: Automatic
+  name: ocs-operator
+  source: redhat-operators
+  sourceNamespace: openshift-marketplace
