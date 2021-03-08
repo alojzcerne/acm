@@ -1,0 +1,14 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: ac-channel-acm
+---
+apiVersion: apps.open-cluster-management.io/v1
+kind: Channel
+metadata:
+  name: gs-acm
+  namespace: ac-channel-acm
+spec:
+  type: Git
+  pathname: https://github.com/alojzcerne/acm.git

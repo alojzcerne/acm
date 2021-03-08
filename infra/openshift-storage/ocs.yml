@@ -1,0 +1,11 @@
+---
+kind: StorageClass
+apiVersion: storage.k8s.io/v1
+metadata:
+  name: lcl
+  labels:
+    local.storage.openshift.io/owner-name: lcl
+    local.storage.openshift.io/owner-namespace: openshift-local-storage
+provisioner: kubernetes.io/no-provisioner
+reclaimPolicy: Delete
+volumeBindingMode: WaitForFirstConsumer
