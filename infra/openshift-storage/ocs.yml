@@ -26,21 +26,21 @@ subjects:
   name: installadmin
   namespace: openshift-storage
 ---
-#apiVersion: batch/v1
-#kind: Job
-#metadata:
-#  name: set-node-role
-#spec:
-#  template:
-#    spec:
-#      serviceAccountName: installadmin
-#      restartPolicy: Never
-#      containers:
-#      - name: infra
-#        image: registry.redhat.io/openshift4/ose-cli:v4.7
-#        command: ["/bin/sh",  "-c", "oc label node/worker01 node/worker02 node/worker03 cluster.ocs.openshift.io/openshift-storage=''"]
-#---
-kind: StorageClass
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: set-node-role
+spec:
+  template:
+    spec:
+      serviceAccountName: installadmin
+      restartPolicy: Never
+      containers:
+      - name: infra
+        image: registry.redhat.io/openshift4/ose-cli:v4.7
+        command: ["/bin/sh",  "-c", "oc label node/worker01 node/worker02 node/worker03 cluster.ocs.openshift.io/openshift-storage=''"]
+---
+ind: StorageClass
 apiVersion: storage.k8s.io/v1
 metadata:
   name: lcl
