@@ -1,5 +1,5 @@
 cd /home/lojz/md/rh/workshops/ocp4ws/ocp-4.7/acm/
-git show; git add -A; git commit -m change; git push
+git add -A; git commit -m change; git push
 
 cat infra-openshift-local-storage.yml | ssh ocp.services 'export KUBECONFIG=/root/acm/auth/kubeconfig; oc delete -f -'; cat infra-openshift-local-storage.yml | ssh ocp.services 'export KUBECONFIG=/root/acm/auth/kubeconfig; oc apply -f -'
 cat infra-openshift-storage.yml | ssh ocp.services 'export KUBECONFIG=/root/acm/auth/kubeconfig; oc delete -f -'; cat infra-openshift-storage.yml | ssh ocp.services 'export KUBECONFIG=/root/acm/auth/kubeconfig; oc apply -f -'
