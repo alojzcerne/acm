@@ -81,3 +81,4 @@ spec:
     - ReadWriteOnce
   persistentVolumeReclaimPolicy: Recycle
   storageClassName: ocs-storagecluster-cephfs
+  storageClassName: ocs-storagecluster-cephfs
