@@ -69,16 +69,5 @@ spec:
     preCreateSubPaths: true
     pvcClaimSize: 1Gi
     pvcStrategy: common
----
-apiVersion: v1
-kind: PersistentVolume
-metadata:
-  name: pv-workspaces
-spec:
-  capacity:
-    storage: 1Gi
-  accessModes:
-    - ReadWriteOnce
-  persistentVolumeReclaimPolicy: Recycle
-  storageClassName: ocs-storagecluster-cephfs
-  storageClassName: ocs-storagecluster-cephfs
+    postgresPVCStorageClassName: ocs-storagecluster-cephfs
+    
