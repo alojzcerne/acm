@@ -71,13 +71,13 @@ spec:
     pvcStrategy: common
 ---
 apiVersion: v1
-  kind: PersistentVolume
-  metadata:
-    name: pv-workspaces
-  spec:
-    capacity:
-      storage: 1Gi
-    accessModes:
-      - ReadWriteOnce
-    persistentVolumeReclaimPolicy: Recycle
-    storageClassName: ocs-storagecluster-cephfs
+kind: PersistentVolume
+metadata:
+  name: pv-workspaces
+spec:
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Recycle
+  storageClassName: ocs-storagecluster-cephfs
